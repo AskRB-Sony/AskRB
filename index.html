@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AskRB | Student Knowledge Hub</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #202b3c;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #172d46;
+      color: white;
+      padding: 28px 8%;
+    }
+
+    header h1 {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      color: #cbd8e6;
+      margin-top: 5px;
+    }
+
+    nav {
+      margin-top: 18px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 65px 20px 40px;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #65748a;
+      margin-bottom: 25px;
+    }
+
+    .search {
+      width: 90%;
+      max-width: 600px;
+      padding: 15px;
+      border: 1px solid #d5dce5;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0 30px;
+    }
+
+    .category {
+      border: none;
+      background: white;
+      padding: 10px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: #34445a;
+    }
+
+    .category.active,
+    .category:hover {
+      background: #172d46;
+      color: white;
+    }
+
+    .questions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .question-card {
+      background: white;
+      padding: 23px;
+      border-radius: 12px;
+      border: 1px solid #e6eaf0;
+    }
+
+    .question-card h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .question-card p {
+      color: #65748a;
+      font-size: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      color: #315c91;
+      background: #e9f1fa;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .answer {
+      margin-top: 15px;
+      padding-top: 12px;
+      border-top: 1px solid #edf0f4;
+    }
+
+    .submit-section {
+      background: white;
+      margin: 60px auto;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 650px;
+    }
+
+    .submit-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .submit-section p {
+      color: #65748a;
+      margin-bottom: 20px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 15px;
+      border: 1px solid #d5dce5;
+      border-radius: 7px;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    button.submit {
+      background: #172d46;
+      color: white;
+      border: none;
+      padding: 13px 23px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      background: #172d46;
+      color: #cbd8e6;
+      padding: 25px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>AskRB</h1>
+    <p>Student knowledge. Shared experiences. Better answers.</p>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#questions">Browse Q&A</a>
+      <a href="#submit">Submit a Question</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h2>Find answers. Share experiences.</h2>
+    <p>A knowledge hub built by students, for students.</p>
+
+    <input
+      type="text"
+      class="search"
+      id="search"
+      placeholder="Search questions, subjects, or topics..."
+      oninput="filterQuestions()"
+    >
+  </section>
+
+  <main class="container" id="questions">
+
+    <h2>Explore the Knowledge Hub</h2>
+
+    <div class="categories">
+      <button class="category active" onclick="setCategory('All', this)">All</button>
+      <button class="category" onclick="setCategory('Academics', this)">Academics</button>
+      <button class="category" onclick="setCategory('Student Life', this)">Student Life</button>
+      <button class="category" onclick="setCategory('Clubs', this)">Clubs</button>
+      <button class="category" onclick="setCategory('Advice', this)">Advice</button>
+    </div>
+
+    <div class="questions" id="questionList">
+
+      <article class="question-card" data-category="Academics">
+        <span class="tag">Academics</span>
+        <h3>How should I prepare for AP classes?</h3>
+        <p>What are some useful strategies for managing AP coursework?</p>
+        <div class="answer">
+          <strong>Student Advice</strong>
+          <p>Stay organized, review material consistently, and avoid leaving everything until the night before a test.</p>
+        </div>
+      </article>
+
+      <article class="question-card" data-category="Student Life">
+        <span class="tag">Student Life</span>
+        <h3>How do I get involved at school?</h3>
+        <p>What opportunities are available for students?</p>
+        <div class="answer">
+          <strong>Student Advice</strong>
+          <p>Explore clubs, attend school events, and talk to students involved in activities that interest you.</p>
+        </div>
+      </article>
+
+      <article class="question-card" data-category="Clubs">
+        <span class="tag">Clubs</span>
+        <h3>How do I start a school club?</h3>
+        <p>What should I know before starting a new organization?</p>
+        <div class="answer">
+          <strong>Student Advice</strong>
+          <p>Start with a clear purpose, find interested students, and check your school's club approval process.</p>
+        </div>
+      </article>
+
+      <article class="question-card" data-category="Advice">
+        <span class="tag">Advice</span>
+        <h3>What do you wish you knew as a freshman?</h3>
+        <p>Advice from students with more high school experience.</p>
+        <div class="answer">
+          <strong>Student Advice</strong>
+          <p>Get involved, ask questions, and don't feel like you need to have everything figured out immediately.</p>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <section class="submit-section" id="submit">
+    <h2>Contribute to AskRB</h2>
+    <p>Have a question or useful advice? Share it with the student community.</p>
+
+    <form id="submissionForm">
+      <input type="text" placeholder="Your question" required>
+
+      <select required>
+        <option value="">Choose a category</option>
+        <option>Academics</option>
+        <option>Student Life</option>
+        <option>Clubs</option>
+        <option>Advice</option>
+      </select>
+
+      <textarea placeholder="Write your answer or suggestion..." required></textarea>
+
+      <button class="submit" type="submit">Submit for Review</button>
+    </form>
+
+    <p id="message" aria-live="polite"></p>
+  </section>
+
+  <section class="container" id="about">
+    <h2>About AskRB</h2>
+    <p>
+      AskRB is a student-led knowledge platform designed
+      to make school information, experiences, and advice
+      more accessible to the student community.
+    </p>
+  </section>
+
+  <footer>
+    <p>AskRB | Student Knowledge Platform</p>
+    <p>Student experiences are not official school guidance.</p>
+  </footer>
+
+  <script>
+    let selectedCategory = "All";
+
+    function setCategory(category, button) {
+      selectedCategory = category;
+
+      document.querySelectorAll(".category").forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      button.classList.add("active");
+      filterQuestions();
+    }
+
+    function filterQuestions() {
+      const search = document
+        .getElementById("search")
+        .value.toLowerCase();
+
+      document.querySelectorAll(".question-card").forEach(card => {
+        const matchesSearch =
+          card.innerText.toLowerCase().includes(search);
+
+        const matchesCategory =
+          selectedCategory === "All" ||
+          card.dataset.category === selectedCategory;
+
+        card.style.display =
+          matchesSearch && matchesCategory ? "block" : "none";
+      });
+    }
+
+    document.getElementById("submissionForm")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        document.getElementById("message").textContent =
+          "Thank you! This demo form does not yet store submissions. We'll connect it to a database in a later version.";
+
+        this.reset();
+      });
+  </script>
+
+</body>
+</html>
